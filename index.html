@@ -61,7 +61,7 @@
       function displayWeatherInfo() {
 
         var city = $(this).attr("data-name");
-        var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial&APPID=8c805a236f343d5723869bf3cdcb969a";
+        var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial&APPID=8c805a236f343d5723869bf3cdcb969a";
 
         // Creating an AJAX call for the specific movie button being clicked
         $.ajax({
