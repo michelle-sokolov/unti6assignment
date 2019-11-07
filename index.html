@@ -17,6 +17,9 @@
         margin: 15%;
         margin-top: 0px;
     }
+    #pFive{
+        color: blueviolet;
+    }
     .weather{
         padding: 3%;
         color: black;
@@ -58,7 +61,7 @@
       function displayWeatherInfo() {
 
         var city = $(this).attr("data-name");
-        var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&APPID=8c805a236f343d5723869bf3cdcb969a";
+        var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial&APPID=8c805a236f343d5723869bf3cdcb969a";
 
         // Creating an AJAX call for the specific movie button being clicked
         $.ajax({
@@ -66,53 +69,188 @@
           method: "GET"
         }).then(function(response) {
 
-          // Creating a div to hold the movie
-          var weatherDiv = $("<div class='weather'>");
+        console.log(response.list[0].weather[0].icon);
+        // Creating a div to hold the movie
+        var weatherDiv = $("<div class='weather'>");
 
-          // Displaying the currentTemp
-          weatherDiv.append(city);
+        // Displaying the currentTemp
+        weatherDiv.append(response.city.name);
 
-          // Storing the rating data
-          var currentTemp = response.main.temp;
+        // Storing the rating data
+        var currentTemp = response.list[0].main.temp;
 
-          // Creating an element to have the currentTemp displayed
-          var pOne = $("<p>").text("Current Temperature: " + currentTemp);
+        // Creating an element to have the currentTemp displayed
+        var pOne = $("<p>").text("Day 1(Current Temperature): " + currentTemp);
 
-          // Displaying the currentTemp
-          weatherDiv.append(pOne);
+        // Displaying the currentTemp
+        weatherDiv.append(pOne.css("background-color", "red"));
 
-          // Storing the pressure 
-          var highTemp = response.main.temp_max;
+        var currentHumid = response.list[0].main.humidity;
 
-          // Creating an element to hold the highTemp
-          var pTwo = $("<p>").text("High of: " + highTemp);
+        // Creating an element to have the currentTemp displayed
+        var pOne = $("<p>").text("Day 1(Current Humidity): " + currentHumid);
 
-          // Displaying the release year
-          weatherDiv.append(pTwo);
+        // Displaying the currentTemp
+        weatherDiv.append(pOne.css("background-color", "red"));
 
-          // Storing the low temp
-          var lowTemp = response.main.temp_min;
+        var currentWind = response.list[0].wind.speed;
 
-          // Creating an element to hold the plot
-          var pThree = $("<p>").text("Low of: " + lowTemp);
+        // Creating an element to have the currentTemp displayed
+        var pOne = $("<p>").text("Day 1(Current Wind Speed): " + currentWind);
 
-          // Appending the plot
-          weatherDiv.append(pThree);
+        // Displaying the currentTemp
+        weatherDiv.append(pOne.css("background-color", "red"));
 
-          // Retrieving the URL for the image
-          //var imgURL = response.Poster;
+         // Retrieving the URL for the image
+          var imgURL = response.list[0].weather[0].icon;
 
           // Creating an element to hold the image
-          //var image = $("<img>").attr("src", imgURL);
+          var image = $("<img>").attr("src", imgURL);
 
           // Appending the image
-          //movieDiv.append(image);
+          weatherDiv.append(image);
+
+
+          // Storing the pressure 
+        var temp2 = response.list[1].main.temp;
+
+          // Creating an element to hold the highTemp
+        var pTwo = $("<p>").text("Day 2 Temperature: " + temp2);
+
+          // Displaying the release year
+        weatherDiv.append(pTwo.css("background-color", "orange"));
+
+          // Storing the low temp
+        var humid2 = response.list[1].main.humidity;
+
+          // Creating an element to hold the plot
+        var pTwo = $("<p>").text("Day 2 Humidity: " + humid2);
+
+          // Appending the plot
+        weatherDiv.append(pTwo.css("background-color", "orange"));
+
+        // Retrieving the URL for the image
+        var imgURL = response.list[1].weather[0].icon;
+
+        // Creating an element to hold the image
+        var image = $("<img>").attr("src", imgURL);
+
+        // Appending the image
+        weatherDiv.append(image);
+
+        var temp3 = response.list[2].main.temp;
+
+        // Creating an element to hold the highTemp
+        var pThree = $("<p>").text("Day 3 Temperature: " + temp3);
+
+        // Displaying the release year
+        weatherDiv.append(pThree.css("background-color", "yellow"));
+
+        // Storing the low temp
+        var humid3 = response.list[2].main.humidity;
+
+        // Creating an element to hold the plot
+        var pThree = $("<p>").text("Day 3 Humidity: " + humid3);
+
+        //Appending the plot
+        weatherDiv.append(pThree.css("background-color", "yellow"));
+
+        // Retrieving the URL for the image
+        var imgURL = response.list[2].weather[0].icon;
+
+        // Creating an element to hold the image
+        var image = $("<img>").attr("src", imgURL);
+
+        // Appending the image
+        weatherDiv.append(image);
 
           // Putting the entire movie above the previous movies
-          $("#weather-view").prepend(weatherDiv);
-        });
+        $("#weather-view").prepend(weatherDiv);
 
-      }
+        var temp4 = response.list[3].main.temp;
+
+        // Creating an element to hold the highTemp
+        var pFour = $("<p>").text("Day 4 Temperature: " + temp4);
+
+        // Displaying the release year
+        weatherDiv.append(pFour.css("background-color", "green"));
+
+        // Storing the low temp
+        var humid4 = response.list[3].main.humidity;
+
+        // Creating an element to hold the plot
+        var pFour = $("<p>").text("Day 4 Humidity: " + humid4);
+
+        //Appending the plot
+        weatherDiv.append(pFour.css("background-color", "green"));
+
+        // Retrieving the URL for the image
+        var imgURL = response.list[3].weather[0].icon;
+
+        // Creating an element to hold the image
+        var image = $("<img>").attr("src", imgURL);
+
+        // Appending the image
+        weatherDiv.append(image);
+
+        var temp5 = response.list[4].main.temp;
+
+        // Creating an element to hold the highTemp
+        var pFive = $("<p>").text("Day 5 Temperature: " + temp5);
+
+        // Displaying the release year
+        weatherDiv.append(pFive.css("background-color", "blue"));
+
+        // Storing the low temp
+        var humid5 = response.list[4].main.humidity;
+
+        // Creating an element to hold the plot
+        var pFive = $("<p>").text("Day 5 Humidity: " + humid5);
+
+        //Appending the plot
+        weatherDiv.append(pFive.css("background-color", "blue"));
+
+        // Retrieving the URL for the image
+        var imgURL = response.list[4].weather[0].icon;
+
+        // Creating an element to hold the image
+        var image = $("<img>").attr("src", imgURL);
+
+        // Appending the image
+        weatherDiv.append(image);
+        
+        var temp6 = response.list[5].main.temp;
+
+        // Creating an element to hold the highTemp
+        var pSix = $("<p>").text("Day 6 Temperature: " + temp6);
+
+        // Displaying the release year
+        weatherDiv.append(pSix.css("background-color", "purple"));
+
+        // Storing the low temp
+        var humid6 = response.list[5].main.humidity;
+
+        // Creating an element to hold the plot
+        var pSix = $("<p>").text("Day 6 Humidity: " + humid6);
+
+        //Appending the plot
+        weatherDiv.append(pSix.css("background-color", "purple"));
+
+        // Retrieving the URL for the image
+        var imgURL = response.list[5].weather[0].icon;
+
+        // Creating an element to hold the image
+        var image = $("<img>").attr("src", imgURL);
+
+        // Appending the image
+        weatherDiv.append(image);        
+
+        // Putting the entire weather data above the previous movies
+        $("#weather-view").prepend(weatherDiv); 
+        
+    });
+
+}
 
       // Function for displaying movie data
       function renderButtons() {
