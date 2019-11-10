@@ -61,192 +61,137 @@
       function displayWeatherInfo() {
 
         var city = $(this).attr("data-name");
-        var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial&APPID=8c805a236f343d5723869bf3cdcb969a";
+        var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial&APPID=8c805a236f343d5723869bf3cdcb969a";
 
         // Creating an AJAX call for the specific movie button being clicked
         $.ajax({
           url: queryURL,
           method: "GET"
         }).then(function(response) {
-
-        console.log(response.list[0].weather[0].icon);
-        // Creating a div to hold the movie
+        //console.log(response.list[0].weather[0].icon);
+        // Creating a div to hold the weather info
         var weatherDiv = $("<div class='weather'>");
 
-        // Displaying the currentTemp
+        // Display city name
         weatherDiv.append(response.city.name);
+          //append date
+        var date1 = response.list[6].dt_txt;
+        var dateOne = $("<p>").text("Date: " + date1);
+        weatherDiv.append(dateOne.css("background-color", "white"));
 
-        // Storing the rating data
+        // Storing the current temp
         var currentTemp = response.list[0].main.temp;
 
         // Creating an element to have the currentTemp displayed
-        var pOne = $("<p>").text("Day 1(Current Temperature): " + currentTemp);
+        var pOne = $("<p>").text("Current Temperature: " + currentTemp);
 
         // Displaying the currentTemp
         weatherDiv.append(pOne.css("background-color", "red"));
 
         var currentHumid = response.list[0].main.humidity;
 
-        // Creating an element to have the currentTemp displayed
-        var pOne = $("<p>").text("Day 1(Current Humidity): " + currentHumid);
+        // Creating an element to have the humidity displayed
+        var pOne = $("<p>").text("Current Humidity: " + currentHumid);
 
-        // Displaying the currentTemp
+        // Displaying the humidity
         weatherDiv.append(pOne.css("background-color", "red"));
 
         var currentWind = response.list[0].wind.speed;
 
-        // Creating an element to have the currentTemp displayed
-        var pOne = $("<p>").text("Day 1(Current Wind Speed): " + currentWind);
+        // Creating an element to have the wind speed displayed
+        var pOne = $("<p>").text("Current Wind Speed: " + currentWind);
 
-        // Displaying the currentTemp
+        // Displaying the wind speed
         weatherDiv.append(pOne.css("background-color", "red"));
 
-         // Retrieving the URL for the image
-          var imgURL = response.list[0].weather[0].icon;
-
-          // Creating an element to hold the image
-          var image = $("<img>").attr("src", imgURL);
-
-          // Appending the image
-          weatherDiv.append(image);
-
-
-          // Storing the pressure 
-        var temp2 = response.list[1].main.temp;
-
-          // Creating an element to hold the highTemp
-        var pTwo = $("<p>").text("Day 2 Temperature: " + temp2);
-
-          // Displaying the release year
-        weatherDiv.append(pTwo.css("background-color", "orange"));
-
-          // Storing the low temp
-        var humid2 = response.list[1].main.humidity;
-
-          // Creating an element to hold the plot
-        var pTwo = $("<p>").text("Day 2 Humidity: " + humid2);
-
-          // Appending the plot
-        weatherDiv.append(pTwo.css("background-color", "orange"));
-
-        // Retrieving the URL for the image
-        var imgURL = response.list[1].weather[0].icon;
-
+        // Retrieving the URL for the image 
+        var imgURL = response.list[0].weather[0].icon;
+       var newURL = "http://openweathermap.org/img/w/01n" + imgURL + ".png";
         // Creating an element to hold the image
-        var image = $("<img>").attr("src", imgURL);
-
+        var image = $("<img>").attr("src", newURL);
         // Appending the image
-        weatherDiv.append(image);
+        weatherDiv.append("<img src=" + image + ">"); 
+
+//next day        
+        var date2 = response.list[7].dt_txt;
+        var dateTwo = $("<p>").text("Date: " + date2);
+        weatherDiv.append(dateTwo.css("background-color", "white"));
+        var temp2 = response.list[1].main.temp;
+        var pTwo = $("<p>").text("Temperature: " + temp2);
+        weatherDiv.append(pTwo.css("background-color", "orange"));
+        var humid2 = response.list[1].main.humidity;
+        var pTwo = $("<p>").text("Humidity: " + humid2);
+        weatherDiv.append(pTwo.css("background-color", "orange"));
+
+       var imgURL1 = response.list[1].weather[0].icon;
+       var newURL1 = "http://openweathermap.org/img/w/01n" + imgURL1 + ".png";
+        var image1 = $("<img>").attr("src", newURL1);
+        weatherDiv.append("<img src=" + image1 + ">"); 
+
+//next day forecast
+        var date3 = response.list[8].dt_txt;
+        var dateThree = $("<p>").text("Date: " + date3);
+        weatherDiv.append(dateThree.css("background-color", "white"));
 
         var temp3 = response.list[2].main.temp;
-
-        // Creating an element to hold the highTemp
-        var pThree = $("<p>").text("Day 3 Temperature: " + temp3);
-
-        // Displaying the release year
+        var pThree = $("<p>").text("Temperature: " + temp3);
         weatherDiv.append(pThree.css("background-color", "yellow"));
-
-        // Storing the low temp
         var humid3 = response.list[2].main.humidity;
-
-        // Creating an element to hold the plot
-        var pThree = $("<p>").text("Day 3 Humidity: " + humid3);
-
-        //Appending the plot
+        var pThree = $("<p>").text("Humidity: " + humid3);
         weatherDiv.append(pThree.css("background-color", "yellow"));
 
-        // Retrieving the URL for the image
-        var imgURL = response.list[2].weather[0].icon;
+        var imgURL2 = response.list[2].weather[0].icon;
+       var newURL2 = "http://openweathermap.org/img/w/01n" + imgURL2 + ".png";
+        var image2 = $("<img>").attr("src", newURL2);
+        weatherDiv.append("<img src=" + image2 + ">"); 
 
-        // Creating an element to hold the image
-        var image = $("<img>").attr("src", imgURL);
-
-        // Appending the image
-        weatherDiv.append(image);
-
-          // Putting the entire movie above the previous movies
-        $("#weather-view").prepend(weatherDiv);
-
+//next day
+        var date4 = response.list[9].dt_txt;
+        var dateFour = $("<p>").text("Date: " + date4);
+        weatherDiv.append(dateFour.css("background-color", "white"));
         var temp4 = response.list[3].main.temp;
-
-        // Creating an element to hold the highTemp
-        var pFour = $("<p>").text("Day 4 Temperature: " + temp4);
-
-        // Displaying the release year
+        var pFour = $("<p>").text("Temperature: " + temp4);
         weatherDiv.append(pFour.css("background-color", "green"));
-
-        // Storing the low temp
         var humid4 = response.list[3].main.humidity;
-
-        // Creating an element to hold the plot
-        var pFour = $("<p>").text("Day 4 Humidity: " + humid4);
-
-        //Appending the plot
+        var pFour = $("<p>").text("Humidity: " + humid4);
         weatherDiv.append(pFour.css("background-color", "green"));
 
-        // Retrieving the URL for the image
-        var imgURL = response.list[3].weather[0].icon;
+        var imgURL3 = response.list[3].weather[0].icon;
+        var newURL3 = "http://openweathermap.org/img/w/01n" + imgURL3 + ".png";
+        var image3 = $("<img>").attr("src", newURL3);
+        weatherDiv.append("<img src=" + image3 + ">"); 
 
-        // Creating an element to hold the image
-        var image = $("<img>").attr("src", imgURL);
-
-        // Appending the image
-        weatherDiv.append(image);
-
+//next day
+        var date5 = response.list[10].dt_txt;
+        var dateFive = $("<p>").text("Date: " + date5);
+        weatherDiv.append(dateFive.css("background-color", "white"));
         var temp5 = response.list[4].main.temp;
-
-        // Creating an element to hold the highTemp
-        var pFive = $("<p>").text("Day 5 Temperature: " + temp5);
-
-        // Displaying the release year
+        var pFive = $("<p>").text("Temperature: " + temp5);
         weatherDiv.append(pFive.css("background-color", "blue"));
-
-        // Storing the low temp
         var humid5 = response.list[4].main.humidity;
-
-        // Creating an element to hold the plot
-        var pFive = $("<p>").text("Day 5 Humidity: " + humid5);
-
-        //Appending the plot
+        var pFive = $("<p>").text("Humidity: " + humid5);
         weatherDiv.append(pFive.css("background-color", "blue"));
-
-        // Retrieving the URL for the image
-        var imgURL = response.list[4].weather[0].icon;
-
-        // Creating an element to hold the image
-        var image = $("<img>").attr("src", imgURL);
-
-        // Appending the image
-        weatherDiv.append(image);
         
+        var imgURL4 = response.list[4].weather[0].icon;
+        var newURL4 = "http://openweathermap.org/img/w/01n" + imgURL4 + ".png";
+        var image4 = $("<img>").attr("src", newURL4);
+        weatherDiv.append("<img src=" + image4 + ">"); 
+
+//next day
+        var date6 = response.list[11].dt_txt;
+        var dateSix = $("<p>").text("Date: " + date6);
+        weatherDiv.append(dateSix.css("background-color", "white"));
         var temp6 = response.list[5].main.temp;
-
-        // Creating an element to hold the highTemp
-        var pSix = $("<p>").text("Day 6 Temperature: " + temp6);
-
-        // Displaying the release year
+        var pSix = $("<p>").text("Temperature: " + temp6);
         weatherDiv.append(pSix.css("background-color", "purple"));
-
-        // Storing the low temp
         var humid6 = response.list[5].main.humidity;
-
-        // Creating an element to hold the plot
-        var pSix = $("<p>").text("Day 6 Humidity: " + humid6);
-
-        //Appending the plot
+        var pSix = $("<p>").text("Humidity: " + humid6);
         weatherDiv.append(pSix.css("background-color", "purple"));
 
-        // Retrieving the URL for the image
-        var imgURL = response.list[5].weather[0].icon;
-
-        // Creating an element to hold the image
-        var image = $("<img>").attr("src", imgURL);
-
-        // Appending the image
-        weatherDiv.append(image);        
-
-        // Putting the entire weather data above the previous movies
-        $("#weather-view").prepend(weatherDiv); 
+        var imgURL5 = response.list[5].weather[0].icon;
+        var newURL5 = "http://openweathermap.org/img/w/01n" + imgURL5 + ".png";
+        var image5 = $("<img>").attr("src", newURL5);
+        weatherDiv.append("<img src=" + image5 + ">");  
         
     });
 
@@ -276,16 +221,16 @@
         }
       }
 
-      // This function handles events where a movie button is clicked
+      // This function handles events where a city button is clicked
       $("#add-city").on("click", function(event) {
         event.preventDefault();
         // This line grabs the input from the textbox
         var city1 = $("#city-input").val().trim();
 
-        // Adding movie from the textbox to our array
+        // Adding city from the textbox to our array
         cityList.push(city1);
 
-        // Calling renderButtons which handles the processing of our movie array
+        // Calling renderButtons which handles the processing of our city array
         renderButtons();
       });
 
