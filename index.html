@@ -12,7 +12,6 @@
         background: radial-gradient(circle, skyblue, white);
     }
     #weather-view{
-        /*background-image:url("https://imgur.com/iXl1wMq.jpg");*/
         background-color: skyblue;
         margin: 15%;
         margin-top: 0px;
@@ -65,7 +64,6 @@
           url: queryURL,
           method: "GET"
         }).then(function(response) {
-        console.log(response.list[0].weather[0].icon);
         // Creating a div to hold the weather
         var weatherDiv = $("<div class='weather'>");
         // Displaying the city name
@@ -77,12 +75,12 @@
         // Storing the temp
         var currentTemp = response.list[0].main.temp;
         // Creating an element to have the currentTemp displayed
-        var pOne = $("<p>").text("Day 1(Current Temperature): " + currentTemp);
+        var pOne = $("<p>").text("Current Temperature: " + currentTemp);
         // Displaying the currentTemp
         weatherDiv.append(pOne.css("background-color", "red"));
           //repeat for humidity
         var currentHumid = response.list[0].main.humidity;
-        var pOne = $("<p>").text("Day 1(Current Humidity): " + currentHumid);
+        var pOne = $("<p>").text("Current Humidity: " + currentHumid);
         weatherDiv.append(pOne.css("background-color", "red"));
           //repeat for wind speed
         var currentWind = response.list[0].wind.speed;
@@ -98,10 +96,10 @@
         var dateTwo = $("<p>").text("Date: " + date2);
         weatherDiv.append(dateTwo.css("background-color", "white"));   
         var temp2 = response.list[1].main.temp;
-        var pTwo = $("<p>").text("Day 2 Temperature: " + temp2);
+        var pTwo = $("<p>").text("Temperature: " + temp2);
         weatherDiv.append(pTwo.css("background-color", "orange"));
         var humid2 = response.list[1].main.humidity;
-        var pTwo = $("<p>").text("Day 2 Humidity: " + humid2);
+        var pTwo = $("<p>").text("Humidity: " + humid2);
         weatherDiv.append(pTwo.css("background-color", "orange"));
         var imgURL = response.list[1].weather[0].icon;
         var image = $("<img>").attr("src", imgURL);
@@ -125,7 +123,7 @@
 //next day
         var date4 = response.list[9].dt_txt;
         var dateFour = $("<p>").text("Date: " + date4);
-        weatherDiv.append(dateFive.css("background-color", "white"));
+        weatherDiv.append(dateFour.css("background-color", "white"));
         var temp4 = response.list[3].main.temp;
         var pFour = $("<p>").text("Temperature: " + temp4);
         weatherDiv.append(pFour.css("background-color", "green"));
