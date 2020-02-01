@@ -1,3 +1,3 @@
 # unti6assignment
 
-a weather app that shows weather conditions by city.
+a weather application that shows weather conditions by city using API calls.
